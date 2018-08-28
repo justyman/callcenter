@@ -13,11 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CallController {
 
+    public static final String RETURN_CODE = "  ";
 
     @RequestMapping(value = "/calling",method = RequestMethod.GET)
     private String call(){
 
 
         return "on calling.....";
+    }
+
+    @Override
+    public String toString() {
+        return RETURN_CODE;
     }
 }
