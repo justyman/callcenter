@@ -11,10 +11,12 @@ public class AgeUtilTest {
 
         AgeUtil util = new AgeUtil();
 
-        Assert.assertEquals(20,util.age("M"));
-        Assert.assertEquals(15,util.age("Y"));
-        Assert.assertEquals(10,util.age("B"));
-        Assert.assertEquals(1,util.age("O"));
+        Assert.assertEquals(20,util.age("M","G"));
+        Assert.assertEquals(1,util.age("M","N"));
+        Assert.assertEquals(15,util.age("Y","N"));
+        Assert.assertEquals(15,util.age("Y","G"));
+        Assert.assertEquals(10,util.age("B","G"));
+        Assert.assertEquals(1,util.age("O","G"));
     }
 
 }

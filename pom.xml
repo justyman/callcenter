@@ -5,7 +5,7 @@
 
 	<groupId>com.gzb</groupId>
 	<artifactId>callcenter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>callcenter</name>
@@ -37,12 +37,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.5</version>
-		</dependency> -->
-
         <!-- monitor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,23 +44,66 @@
         </dependency>
 
 		<!-- enable eureka -->
-
-		<!--<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-commons</artifactId>
-			<version>2.0.0.RC1</version>
-		</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<!--<version>2.0.0.RC1</version> -->
 		</dependency>
-		<dependency>
+
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>RELEASE</version>
+		</dependency>-->
+
+		<!--  alibaba druid database connection pool    -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.10</version>
 		</dependency>
+
+		<!--  mybatis                                   -->
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<!--<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+		</dependency>-->
+
+		<!--  mysql driver info                     -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!--   add the JPA dependency  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.2</version>
+			<scope>test</scope>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -80,19 +117,9 @@
 			</dependency>
 
 			<!--<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-			</dependency>-->
-
-			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-security</artifactId>
-			</dependency>
+			</dependency>-->
 
 		</dependencies>
 	</dependencyManagement>
@@ -102,6 +129,72 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.2</version>
+				<configuration>
+					<destFile>target/coverage-reports/jacoco-unit.exec</destFile>
+					<dataFile>target/coverage-reports/jacoco-unit.exec</dataFile>
+					<includes>
+						<include>**/service/utils/**</include>
+						<include>**/controller/**</include>
+						<!--<include>**/service/impl/*.class</include>-->
+					</includes>
+					<!-- rules里面指定覆盖规则 -->
+					<rules>
+						<rule implementation="org.jacoco.maven.RuleConfiguration">
+							<element>BUNDLE</element>
+							<limits>　　
+								<!-- 指定方法覆盖到50% -->
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>METHOD</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>0.50</minimum>
+								</limit>
+								<!-- 指定分支覆盖到50% -->
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>BRANCH</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>0.50</minimum>
+								</limit>
+								<!-- 指定类覆盖到100%，不能遗失任何类 -->
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>CLASS</counter>
+									<value>MISSEDCOUNT</value>
+									<maximum>0</maximum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!--这个check:对代码进行检测，控制项目构建成功还是失败-->
+					<execution>
+						<id>check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+					<!--这个report:对代码进行检测，然后生成index.html在 target/site/index.html中可以查看检测的详细结果-->
+					<execution>
+						<id>jacoco-site</id>
+						<phase>package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+
 			</plugin>
 		</plugins>
 	</build>
