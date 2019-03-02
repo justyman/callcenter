@@ -31,6 +31,10 @@ public class RandomUtil {
         return new String(chs);
     }
 
+    private String getRandomString(){
+
+        return "";
+    }
     public static void main(String[] args){
 
         RandomUtil util = new RandomUtil();
