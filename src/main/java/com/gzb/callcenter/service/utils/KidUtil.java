@@ -36,5 +36,14 @@ public class KidUtil {
         }
     }
 
+    public int getWife(String husband){
+        if ("Jack".equals(husband)){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+
+
 
 }
