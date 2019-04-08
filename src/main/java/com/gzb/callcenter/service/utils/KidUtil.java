@@ -28,12 +28,5 @@ public class KidUtil {
         }
     }
 
-    public int getHusband(String wife){
-        if ("Sussi".equals(wife)){
-            return 1;
-        }else{
-            return 2;
-        }
-    }
 
 }
